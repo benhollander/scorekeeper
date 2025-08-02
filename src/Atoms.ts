@@ -1,37 +1,34 @@
-import { withImmer } from 'jotai-immer';
 import { focusAtom } from 'jotai-optics';
 import { atomWithStorage, splitAtom } from 'jotai/utils';
 
 export interface Player {
-  bags?: number;
-  display: boolean;
+  bags: number;
   name: string;
-  rounds?: number[];
+  rounds: number[];
 }
 
 export interface State {
   players: Player[];
-  sandbags?: boolean;
+  showSandbags?: boolean;
+  numRounds: number;
 }
 
 const defaultState: State = {
+  numRounds: 1,
   players: [
     {
       bags: 0,
-      display: true,
       name: 'Us',
       rounds: [0],
     },
     {
       bags: 0,
-      display: true,
       name: 'Them',
       rounds: [0],
     },
   ],
-  sandbags: false,
+  showSandbags: false,
 };
-
 
 // const countReducer = (prev, action) => {
 //   if (action.type === 'inc') return prev + 1
@@ -46,7 +43,7 @@ const defaultState: State = {
 //   if (action.type === '')
 // }
 
-export const scoresAtom = withImmer(atomWithStorage<State>('scores', defaultState));
+export const scoresAtom = atomWithStorage<State>('scores', defaultState);
 
 export const playersAtoms = splitAtom(
   focusAtom(scoresAtom, optic => optic.prop('players')),

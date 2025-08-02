@@ -1,7 +1,3 @@
-import { useAtom } from 'jotai';
-
-import type { Atom } from 'jotai';
-
 const Round = ({
   value,
   index,
@@ -13,9 +9,10 @@ const Round = ({
 }) => {
   return (
     <input
-      className="text-center"
+      className="text-center mb-2 pl-4"
       type="number"
       value={value}
+      autoFocus={false}
       onChange={e => updateRound(parseInt(e.target.value, 10), index)}
       onBlur={e => updateRound(parseInt(e.target.value, 10), index)}
     />

@@ -9,22 +9,27 @@ import {
   Switch,
 } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { RESET } from 'jotai/utils';
-import { useAtom } from 'jotai';
+import { RESET, useResetAtom } from 'jotai/utils';
 import { scoresAtom } from './Atoms';
+import { useImmerAtom } from 'jotai-immer';
 
 export default function Example() {
-  const [scores, setScores] = useAtom(scoresAtom);
+  const [scores, setScores] = useImmerAtom(scoresAtom);
+  const resetScores = useResetAtom(scoresAtom)
 
-  const addPlayer = () =>
-    setScores({ players: [...scores.players, { name: '#', rounds: [0] }] });
-  const removePlayer = () => {
-    const newPlayers = [...scores.players];
-    newPlayers.pop();
-    setScores({ players: newPlayers });
+  const addPlayer = () => {
+    setScores(draft => { draft.players.push({ name: '#', rounds: [0], bags: 0 }); });
   };
-  const toggleSandbags = () =>
-    setScores({ ...scores, sandbags: !scores.sandbags });
+
+  const removePlayer = () => {
+    setScores(draft => { draft.players.pop(); });
+  };
+
+  const toggleSandbags = () =>{
+    setScores(draft => { draft.showSandbags = !draft.showSandbags });
+  };
+  const decRounds = () => {}
+  const incRounds = () => {}
 
   return (
     <Menu as="nav" className="bg-base-300 p-4 mb-4">
@@ -40,14 +45,18 @@ export default function Example() {
           )
         }
       </MenuButton>
-      <MenuItems anchor="bottom" className="bg-base-300 p-4 rounded-b-sm">
+      <MenuItems
+        anchor="bottom"
+        className="bg-base-300 p-4 rounded-b-smorigin-top transition duration-200 ease-out origin-top data-closed:scale-y-0"
+        transition
+      >
         <MenuItem>
-          <button onClick={() => setScores(RESET)} className="block mb-4">
+          <button onClick={resetScores} className="block mb-4">
             New Game
           </button>
         </MenuItem>
-        <MenuItem>
-          <>
+        <MenuItem as={Fragment}>
+        {() => <>
             Players
             <button
               onClick={removePlayer}
@@ -61,14 +70,16 @@ export default function Example() {
             >
               +
             </button>
-          </>
+        </>
+        }
         </MenuItem>
         <MenuItem>
           <Field>
             <Label className="mr-4">Use Sandbags</Label>
             <Switch
-              onChange={toggleSandbags}
+            checked={scores.showSandbags}
               className="group inline-flex h-6 w-11 items-center rounded-full bg-white/10 transition data-checked:bg-blue-600"
+              onChange={toggleSandbags}
             >
               <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-checked:translate-x-6" />
             </Switch>

@@ -1,42 +1,64 @@
-import { useAtom, type Atom, type WriteableAtom } from 'jotai';
+import { useImmerAtom } from 'jotai-immer';
+import type { WritableDraft } from 'immer';
+import { atom, type PrimitiveAtom } from 'jotai';
 
-import type { Player } from './Atoms';
+import { scoresAtom, type Player } from './Atoms';
 import Round from './Round';
+import Sandbags from './Sandbags';
 
 const Column = ({
+  addRound,
+  numRounds,
   playerAtom,
-  sandbags,
+  showSandbags,
 }: {
-  playerAtom: WriteableAtom<Player>;
-  sandbags?: boolean;
+  addRound: () => void;
+  numRounds: number;
+  playerAtom: PrimitiveAtom<Player>;
+  showSandbags?: boolean;
 }) => {
-  const [player, setPlayer] = useAtom(playerAtom);
+  const [player, setPlayer]: [
+    Player,
+    (fn: (draft: WritableDraft<Player>) => void) => unknown,
+  ] = useImmerAtom(playerAtom);
 
-  const updatePlayer = (key: string, value: string) => {
-    setPlayer({ ...player, [key]: value });
+  const updatePlayerName = (n: string) => {
+    setPlayer(draft => {
+      draft.name = n;
+    });
   };
 
   const updateRound = (value: number, index: number) => {
-    const newRounds = [...player.rounds];
-    newRounds[index] = value;
-    setPlayer({ ...player, rounds: newRounds})
-  }
+    setPlayer(draft => {
+      draft.rounds[index] = value;
+    });
+  };
+
   return (
-    <div className="flex flex-col text-center">
-      <input
-        className="mb-4 text-center font-bold"
-        value={player?.name || '#'}
-        onChange={e => updatePlayer('name', e.target.value)}
-      />
-      {player?.rounds?.map((round, i) =>
-        <Round key={`round-${player?.name}-round-${i}`} value={round} index={i} updateRound={updateRound} />
-      )}
-      <Round value={0} index={player.rounds.length} updateRound={updateRound} />
-      <hr />
-      <h3 className="p-4 font-bold text-xl">
-        {player?.rounds?.reduce((a: number, b: number) => a + b, 0)}
-        {sandbags ? <span> / {player?.bags}</span> : null}
-      </h3>
+    <div>
+      <div className="grid grid-flow-row text-center">
+        <input
+          className="mb-4 text-center"
+          value={player.name || '#'}
+          onChange={e => updatePlayerName(e.target.value)}
+        />
+        {Array(numRounds)
+          .fill(0)
+          .map((_val, i) => (
+            <Round
+              key={`round-${player?.name}-round-${i}`}
+              value={player.rounds[i] || 0}
+              index={i}
+              updateRound={updateRound}
+            />
+          ))}
+          <button onClick={addRound}>+</button>
+        <hr />
+      </div>
+      <div className="grid grid-flow-col justify-items-center mt-3">
+        <div className="font-bold text-xl">{player?.rounds?.reduce((a: number, b: number) => a + b, 0)}</div>
+        {showSandbags && <Sandbags playerAtom={playerAtom}/>}
+      </div>
     </div>
   );
 };
