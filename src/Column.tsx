@@ -22,6 +22,11 @@ const Column = ({
     (fn: (draft: WritableDraft<Player>) => void) => unknown,
   ] = useImmerAtom(playerAtom);
 
+  let total = player.rounds.reduce((a: number, b: number) => a + b, 0);
+  if (show sandbags) {
+    total -= Math.floor(player.bags / 10) * 100;
+  }
+
   const updatePlayerName = (n: string) => {
     setPlayer(draft => {
       draft.name = n;
@@ -59,8 +64,7 @@ const Column = ({
         <div
           className={`font-bold text-xl justify-self-${showSandbags ? 'end' : 'center'}`}
         >
-          {player.rounds.reduce((a: number, b: number) => a + b, 0) -
-            Math.floor(player.bags / 10) * 100}
+          {total}
         </div>
         {showSandbags && <Sandbags playerAtom={playerAtom} />}
       </div>
