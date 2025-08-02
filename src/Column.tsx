@@ -1,8 +1,8 @@
 import { useImmerAtom } from 'jotai-immer';
 import type { WritableDraft } from 'immer';
-import { atom, type PrimitiveAtom } from 'jotai';
+import { type PrimitiveAtom } from 'jotai';
 
-import { scoresAtom, type Player } from './Atoms';
+import { type Player } from './Atoms';
 import Round from './Round';
 import Sandbags from './Sandbags';
 
@@ -52,12 +52,14 @@ const Column = ({
               updateRound={updateRound}
             />
           ))}
-          <button onClick={addRound}>+</button>
+        <button onClick={addRound}>+</button>
         <hr />
       </div>
       <div className="grid grid-flow-col justify-items-center mt-3">
-        <div className="font-bold text-xl">{player?.rounds?.reduce((a: number, b: number) => a + b, 0)}</div>
-        {showSandbags && <Sandbags playerAtom={playerAtom}/>}
+        <div className="font-bold text-xl">
+          {player?.rounds?.reduce((a: number, b: number) => a + b, 0)}
+        </div>
+        {showSandbags && <Sandbags playerAtom={playerAtom} />}
       </div>
     </div>
   );

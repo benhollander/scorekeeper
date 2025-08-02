@@ -9,27 +9,31 @@ import {
   Switch,
 } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { RESET, useResetAtom } from 'jotai/utils';
+import { useResetAtom } from 'jotai/utils';
 import { scoresAtom } from './Atoms';
 import { useImmerAtom } from 'jotai-immer';
 
 export default function Example() {
   const [scores, setScores] = useImmerAtom(scoresAtom);
-  const resetScores = useResetAtom(scoresAtom)
+  const resetScores = useResetAtom(scoresAtom);
 
   const addPlayer = () => {
-    setScores(draft => { draft.players.push({ name: '#', rounds: [0], bags: 0 }); });
+    setScores(draft => {
+      draft.players.push({ name: '#', rounds: [0], bags: 0 });
+    });
   };
 
   const removePlayer = () => {
-    setScores(draft => { draft.players.pop(); });
+    setScores(draft => {
+      draft.players.pop();
+    });
   };
 
-  const toggleSandbags = () =>{
-    setScores(draft => { draft.showSandbags = !draft.showSandbags });
+  const toggleSandbags = () => {
+    setScores(draft => {
+      draft.showSandbags = !draft.showSandbags;
+    });
   };
-  const decRounds = () => {}
-  const incRounds = () => {}
 
   return (
     <Menu as="nav" className="bg-base-300 p-4 mb-4">
@@ -56,28 +60,29 @@ export default function Example() {
           </button>
         </MenuItem>
         <MenuItem as={Fragment}>
-        {() => <>
-            Players
-            <button
-              onClick={removePlayer}
-              className="py-1 px-4 bg-accent-content ml-4 rounded-l text-white"
-            >
-              -
-            </button>
-            <button
-              onClick={addPlayer}
-              className="py-1 px-4 bg-accent-content mb-4 rounded-r text-white"
-            >
-              +
-            </button>
-        </>
-        }
+          {() => (
+            <>
+              Players
+              <button
+                onClick={removePlayer}
+                className="py-1 px-4 bg-accent-content ml-4 rounded-l text-white"
+              >
+                -
+              </button>
+              <button
+                onClick={addPlayer}
+                className="py-1 px-4 bg-accent-content mb-4 rounded-r text-white"
+              >
+                +
+              </button>
+            </>
+          )}
         </MenuItem>
         <MenuItem>
           <Field>
             <Label className="mr-4">Use Sandbags</Label>
             <Switch
-            checked={scores.showSandbags}
+              checked={scores.showSandbags}
               className="group inline-flex h-6 w-11 items-center rounded-full bg-white/10 transition data-checked:bg-blue-600"
               onChange={toggleSandbags}
             >
