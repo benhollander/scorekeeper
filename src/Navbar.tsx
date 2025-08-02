@@ -12,6 +12,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useResetAtom } from 'jotai/utils';
 import { scoresAtom } from './Atoms';
 import { useImmerAtom } from 'jotai-immer';
+import { logoString } from './assets/logo';
 
 export default function Example() {
   const [scores, setScores] = useImmerAtom(scoresAtom);
@@ -36,7 +37,7 @@ export default function Example() {
   };
 
   return (
-    <Menu as="nav" className="bg-base-300 p-4 mb-4">
+    <Menu as="nav" className="bg-base-300 p-4 mb-4 grid grid-flow-col">
       <MenuButton as={Fragment}>
         {({ active }) =>
           active ? (
@@ -91,6 +92,8 @@ export default function Example() {
           </Field>
         </MenuItem>
       </MenuItems>
+      <div className="text-base-100 font-bold justify-self-center">SCOREKEEPER</div>
+      <img src={logoString} className="h-6 justify-self-end" />
     </Menu>
   );
 }

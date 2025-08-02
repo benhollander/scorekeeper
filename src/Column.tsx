@@ -56,7 +56,7 @@ const Column = ({
         <hr />
       </div>
       <div className="grid grid-flow-col justify-items-center mt-3">
-        <div className="font-bold text-xl">
+        <div className={`font-bold text-xl justify-self-${showSandbags ? 'end' : 'center'}`}>
           {player.rounds.reduce((a: number, b: number) => a + b, 0) - Math.floor(player.bags / 10) * 100}
         </div>
         {showSandbags && <Sandbags playerAtom={playerAtom} />}
