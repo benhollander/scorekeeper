@@ -92,8 +92,12 @@ export default function Example() {
           </Field>
         </MenuItem>
       </MenuItems>
-      <div className="text-base-100 font-bold justify-self-center">SCOREKEEPER</div>
-      <img src={logoString} className="h-6 justify-self-end" />
+      <div className="text-base-100 font-bold justify-self-center">
+        SCOREKEEPER
+      </div>
+      <a href="https://github.com/benhollander/scorekeeper" target="_blank">
+        <img src={logoString} className="h-6 justify-self-end" />
+      </a>
     </Menu>
   );
 }
