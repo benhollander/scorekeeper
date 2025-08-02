@@ -9,12 +9,12 @@ const Round = ({
 }) => {
   return (
     <input
-      className="text-center mb-2 pl-4"
+      className="text-center mb-2 w-auto min-w-0"
       type="number"
       value={value}
       autoFocus={false}
-      onChange={e => updateRound(parseInt(e.target.value, 10), index)}
-      onBlur={e => updateRound(parseInt(e.target.value, 10), index)}
+      onChange={e => updateRound(parseInt(e.target.value, 10) || 0, index)}
+      onBlur={e => updateRound(parseInt(e.target.value, 10) || 0, index)}
     />
   );
 };

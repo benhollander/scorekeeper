@@ -38,7 +38,7 @@ const Column = ({
     <div>
       <div className="grid grid-flow-row text-center">
         <input
-          className="mb-4 text-center"
+          className="mb-4 text-center w-auto min-w-0"
           value={player.name || '#'}
           onChange={e => updatePlayerName(e.target.value)}
         />
@@ -47,7 +47,7 @@ const Column = ({
           .map((_val, i) => (
             <Round
               key={`round-${player?.name}-round-${i}`}
-              value={player.rounds[i] || 0}
+              value={player.rounds[i]}
               index={i}
               updateRound={updateRound}
             />
