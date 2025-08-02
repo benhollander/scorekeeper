@@ -9,7 +9,7 @@ const Round = ({
 }) => {
   return (
     <input
-      className="text-center mb-2 w-auto min-w-3.5 border-b border-b-base-300"
+      className="text-center mb-2 w-auto min-w-3.5 border-b border-b-base-300 no-spinner"
       type="number"
       value={value}
       autoFocus={false}
