@@ -8,11 +8,13 @@ import Sandbags from './Sandbags';
 
 const Column = ({
   addRound,
+  highScore,
   numRounds,
   playerAtom,
   showSandbags,
 }: {
   addRound: () => void;
+  highScore: number;
   numRounds: number;
   playerAtom: PrimitiveAtom<Player>;
   showSandbags?: boolean;
@@ -23,6 +25,8 @@ const Column = ({
   ] = useImmerAtom(playerAtom);
 
   let total = player.rounds.reduce((a: number, b: number) => a + b, 0);
+  const isHighScore = total === highScore;
+
   if (showSandbags) {
     total -= Math.floor(player.bags / 10) * 100;
   }
@@ -43,7 +47,7 @@ const Column = ({
     <div className="mb-8">
       <div className="grid grid-flow-row text-center">
         <input
-          className="mb-4 text-center w-auto min-w-0"
+          className={`mb-4 text-center w-auto min-w-0 ${isHighScore && 'font-extrabold'}`}
           value={player.name || '#'}
           onChange={e => updatePlayerName(e.target.value)}
         />
@@ -62,11 +66,7 @@ const Column = ({
       </div>
       <div className="grid grid-flow-rows justify-items-center mt-3">
         {showSandbags && <Sandbags playerAtom={playerAtom} />}
-        <div
-          className="font-bold text-xl justify-self-center"
-        >
-          {total}
-        </div>
+        <div className="font-bold text-xl justify-self-center">{total}</div>
       </div>
     </div>
   );

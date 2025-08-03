@@ -15,12 +15,19 @@ export const App = () => {
     });
   };
 
+  const highScore = Math.max(
+    ...scores.players.map(player =>
+      player.rounds.reduce((a: number, b: number) => a + b, 0),
+    ),
+  );
+
   return (
     <>
       <Navbar></Navbar>
       <div className="grid grid-flow-rows grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
         {players.map((playerAtom, i) => (
           <Column
+            highScore={highScore}
             addRound={incRounds}
             showSandbags={scores?.showSandbags}
             playerAtom={playerAtom}

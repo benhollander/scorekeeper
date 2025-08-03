@@ -30,19 +30,6 @@ const defaultState: State = {
   showSandbags: false,
 };
 
-// const countReducer = (prev, action) => {
-//   if (action.type === 'inc') return prev + 1
-//   if (action.type === 'dec') return prev - 1
-//   throw new Error('unknown action type')
-// }
-
-// const playerReducer = (prev, action) => {
-//   if (action.type === 'toggle') {
-//     return {...prev, display: !prev.display}
-//   }
-//   if (action.type === '')
-// }
-
 export const scoresAtom = atomWithStorage<State>('scores', defaultState);
 
 export const playersAtoms = splitAtom(
