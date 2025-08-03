@@ -14,6 +14,30 @@ import { scoresAtom } from './Atoms';
 import { useImmerAtom } from 'jotai-immer';
 import { logoString } from './assets/logo';
 
+const Players = ({
+  removePlayer,
+  addPlayer,
+}: {
+  removePlayer: () => void;
+  addPlayer: () => void;
+}) => (
+  <>
+    Players
+    <button
+      onClick={removePlayer}
+      className="py-1 px-4 bg-accent-content ml-4 rounded-l text-white"
+    >
+      -
+    </button>
+    <button
+      onClick={addPlayer}
+      className="py-1 px-4 bg-accent-content mb-4 rounded-r text-white"
+    >
+      +
+    </button>
+  </>
+);
+
 export default function Example() {
   const [scores, setScores] = useImmerAtom(scoresAtom);
   const resetScores = useResetAtom(scoresAtom);
@@ -61,21 +85,7 @@ export default function Example() {
           </button>
         </MenuItem>
         <MenuItem>
-          <div>
-            Players
-            <button
-              onClick={removePlayer}
-              className="py-1 px-4 bg-accent-content ml-4 rounded-l text-white"
-            >
-              -
-            </button>
-            <button
-              onClick={addPlayer}
-              className="py-1 px-4 bg-accent-content mb-4 rounded-r text-white"
-            >
-              +
-            </button>
-          </div>
+          <Players removePlayer={removePlayer} addPlayer={addPlayer} />
         </MenuItem>
         <MenuItem>
           <Field>
