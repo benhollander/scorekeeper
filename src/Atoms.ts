@@ -31,7 +31,6 @@ const defaultState: State = {
 };
 
 export const scoresAtom = atomWithStorage<State>('scores', defaultState);
-
 export const playersAtoms = splitAtom(
   focusAtom(scoresAtom, optic => optic.prop('players')),
 );

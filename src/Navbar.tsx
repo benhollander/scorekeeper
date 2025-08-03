@@ -60,24 +60,22 @@ export default function Example() {
             New Game
           </button>
         </MenuItem>
-        <MenuItem as={Fragment}>
-          {() => (
-            <>
-              Players
-              <button
-                onClick={removePlayer}
-                className="py-1 px-4 bg-accent-content ml-4 rounded-l text-white"
-              >
-                -
-              </button>
-              <button
-                onClick={addPlayer}
-                className="py-1 px-4 bg-accent-content mb-4 rounded-r text-white"
-              >
-                +
-              </button>
-            </>
-          )}
+        <MenuItem>
+          <div>
+            Players
+            <button
+              onClick={removePlayer}
+              className="py-1 px-4 bg-accent-content ml-4 rounded-l text-white"
+            >
+              -
+            </button>
+            <button
+              onClick={addPlayer}
+              className="py-1 px-4 bg-accent-content mb-4 rounded-r text-white"
+            >
+              +
+            </button>
+          </div>
         </MenuItem>
         <MenuItem>
           <Field>

@@ -16,9 +16,13 @@ export const App = () => {
   };
 
   const highScore = Math.max(
-    ...scores.players.map(player =>
-      player.rounds.reduce((a: number, b: number) => a + b, 0),
-    ),
+    ...scores.players.map(player => {
+      let total = player.rounds.reduce((a: number, b: number) => a + b, 0);
+      if (scores.showSandbags) {
+        total -= Math.floor(player.bags / 10) * 100;
+      }
+      return total;
+    }),
   );
 
   return (
