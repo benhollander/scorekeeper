@@ -15,6 +15,7 @@ const Round = ({
       autoFocus={false}
       onChange={e => updateRound(parseInt(e.target.value, 10) || 0, index)}
       onBlur={e => updateRound(parseInt(e.target.value, 10) || 0, index)}
+      onFocus={e => e.target.select()}
     />
   );
 };

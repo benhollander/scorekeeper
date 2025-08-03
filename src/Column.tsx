@@ -47,6 +47,7 @@ const Column = ({
     <div className="mb-8">
       <div className="grid grid-flow-row text-center">
         <input
+          onFocus={e => e.target.select()}
           className={`mb-4 text-center w-auto min-w-0 ${isHighScore && 'font-extrabold'}`}
           value={player.name || '#'}
           onChange={e => updatePlayerName(e.target.value)}
