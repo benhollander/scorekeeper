@@ -40,7 +40,7 @@ const Column = ({
   };
 
   return (
-    <div>
+    <div className="mb-8">
       <div className="grid grid-flow-row text-center">
         <input
           className="mb-4 text-center w-auto min-w-0"
@@ -60,13 +60,13 @@ const Column = ({
         <button onClick={addRound}>+</button>
         <hr />
       </div>
-      <div className="grid grid-flow-col justify-items-center mt-3">
+      <div className="grid grid-flow-rows justify-items-center mt-3">
+        {showSandbags && <Sandbags playerAtom={playerAtom} />}
         <div
-          className={`font-bold text-xl justify-self-${showSandbags ? 'end' : 'center'}`}
+          className="font-bold text-xl justify-self-center"
         >
           {total}
         </div>
-        {showSandbags && <Sandbags playerAtom={playerAtom} />}
       </div>
     </div>
   );

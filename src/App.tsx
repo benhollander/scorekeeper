@@ -18,7 +18,7 @@ export const App = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div className="grid grid-flow-col-dense gap-4">
+      <div className="grid grid-flow-rows grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
         {players.map((playerAtom, i) => (
           <Column
             addRound={incRounds}
