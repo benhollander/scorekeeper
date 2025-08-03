@@ -23,7 +23,7 @@ const Column = ({
   ] = useImmerAtom(playerAtom);
 
   let total = player.rounds.reduce((a: number, b: number) => a + b, 0);
-  if (show sandbags) {
+  if (showSandbags) {
     total -= Math.floor(player.bags / 10) * 100;
   }
 
